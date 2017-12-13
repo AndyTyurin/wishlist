@@ -1,0 +1,97 @@
+# Linter Options
+options:
+  # Don't merge default rules
+  merge-default-rules: false
+  max-warnings: 0
+# File Options
+files:
+  include: 'src/client/components/**/*.s+(a|c)ss'
+  ignore:
+    - 'node_modules/**/*'
+# Rule Configuration
+rules:
+  class-name-format:
+    - 2
+    -
+      allow-leading-underscore: false
+      convention: strictbem
+  shorthand-values: 2
+  extends-before-mixins: 2
+  extends-before-declarations: 2
+  empty-line-between-blocks:
+    - 2
+    -
+      include: true
+      allow-single-line-rulesets: false
+  force-pseudo-nesting: 0
+  hex-notation:
+    - 2
+    -
+      style: lowercase
+  leading-zero: false
+  placeholder-in-extend: 2
+  mixins-before-declarations:
+    - 2
+    -
+      exclude:
+        - breakpoint
+        - mq
+  nesting-depth:
+    - 2
+    -
+      max-depth: 2
+  no-warn: 2
+  no-debug: 2
+  no-ids: 0
+  no-invalid-hex: 2
+  no-important: 2
+  no-misspelled-properties: 2
+  no-qualifying-elements:
+    - 0
+    -
+      allow-element-with-attribute: true
+  no-trailing-whitespace: 2
+  no-trailing-zero: 2
+  one-declaration-per-line: 2
+  quotes:
+    - 2
+    -
+      style: single
+  indentation:
+    - 0
+    -
+      size: 2
+  property-sort-order:
+    - 0
+    -
+      order:
+        - display
+        - margin
+      ignore-custom-properties: true
+  single-line-per-selector: 2
+  space-after-colon: 2
+  space-before-brace:
+    - 2
+    -
+      include: true
+  space-before-colon:
+    - 2
+    -
+      include: false
+  trailing-semicolon:
+    - 2
+    -
+      include: true
+  url-quotes: 2
+  variable-for-property:
+    - 2
+    -
+      properties:
+        - color
+        - background-color
+        - border-color
+        - font-family
+  zero-unit:
+    - 2
+    -
+      include: false
