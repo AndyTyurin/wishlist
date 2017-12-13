@@ -57,7 +57,13 @@ module.exports = {
      * Each API is unique and has common properties.
      */
     api: {
-      // todo implement api settings.
+      search: {
+        nodeServiceName: 'search',
+        host: 'https://www.adidas.co.uk',
+        port: 80,
+        protocol: 'https',
+        methods: ['get']
+      }
     }
   },
   /**

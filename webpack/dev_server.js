@@ -18,7 +18,7 @@ const webpackUtils = require('./../webpack.utils');
 /**
  * Get configuration.
  */
-const webServerPort = config.get('webServer.port');
+const webServerPort = config.get('server.port');
 const clientWatcherPort = config.get('webpack.client.port');
 const serverWatcherPort = config.get('webpack.server.port');
 
