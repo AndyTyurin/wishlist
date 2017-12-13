@@ -1,0 +1,23 @@
+.icon {
+    display: inline-block;
+    background-size: 24px;
+    width: 24px;
+    height: 24px;
+    opacity: 0.55;
+    transition: transform .5s ease;
+    transform: rotate(0);
+}
+
+.name {
+    &-arrow_down {
+        background-image: url('./icons/arrow_down.svg');    
+    }
+
+    &-spinner {
+        background-image: url('./icons/spinner.svg');
+    }
+}
+
+.active {
+    opacity: 1.0;
+}

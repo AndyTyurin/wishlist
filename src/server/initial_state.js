@@ -15,7 +15,7 @@ function createServiceSettingsFromApis(apis) {
   }));
 }
 
-export const initialState = {
+export const getInitialState = csrfToken => ({
   config: {
     baseUri,
     apiUri,
@@ -23,8 +23,9 @@ export const initialState = {
     protocol,
     host,
     port,
-    appVersion: version
+    appVersion: version,
+    csrfToken
   }
-};
+});
 
-export default initialState;
+export default getInitialState;

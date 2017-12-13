@@ -1,0 +1,36 @@
+.heading {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF UI Display', sans-serif;
+    font-weight: 300;
+}
+
+.size {
+    &_xs {
+        font-size: 1.25em;
+        line-height: 1.25em;
+        margin: .6em 0;
+    }
+
+    &_s {
+        font-size: 1.5em;
+        line-height: 1.3em;
+        margin: .65em 0;
+    }
+
+    &_m {
+        font-size: 1.75em;
+        line-height: 1.45em;
+        margin: .9em 0;
+    }
+
+    &_l {
+        font-size: 2em;
+        line-height: 1.4em;
+        margin: 1.25em 0;
+    }
+
+    &_xl {
+        font-size: 2.25em;
+        line-height: 1.45em;
+        margin: 1.45em 0;
+    }
+}

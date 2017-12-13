@@ -1,0 +1,45 @@
+.label {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF UI Display', sans-serif;
+}
+
+.size {
+    &_xs {
+        font-size: .75em;
+        line-height: .6em;
+    }
+
+    &_s {
+        font-size: 1em;
+        line-height: 1.4em;
+    }
+
+    &_m {
+        font-size: 1.25em;
+        line-height: 1.25em;
+    }
+
+    &_l {
+        font-size: 1.5em;
+        line-height: 1.3em;
+    }
+
+    &_xl {
+        font-size: 1.75em;
+        line-height: 1.35em;
+    }
+}
+
+.mode {
+    &_hint {
+        font-weight: 100;
+        opacity: .65;
+    }
+
+    &_normal {
+        font-weight: 300;
+    }
+
+    &_important {
+        font-weight: 500;
+    }
+}

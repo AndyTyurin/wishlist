@@ -11,7 +11,8 @@ export function api(apis, apiUri) {
       nodeServiceName,
       host,
       port,
-      protocol = 'http'
+      protocol = 'http',
+      endpoint
     } = apis[apiName];
 
     const routeHandler = createApiRouteHandler(
@@ -19,7 +20,8 @@ export function api(apis, apiUri) {
       nodeServiceName,
       host,
       port,
-      protocol
+      protocol,
+      endpoint
     );
 
     methods.forEach((method) => {

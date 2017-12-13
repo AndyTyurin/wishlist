@@ -47,24 +47,24 @@ if (isDevelopment) {
   /**
    * Mock services responses.
    */
-  mock();
-} else {
-  /**
-   * CSRF token usage.
-   */
-  app.use(
-    convert(
-      new CSRF({
-        invalidSessionSecretMessage: 'Invalid session',
-        invalidSessionSecretStatusCode: 403,
-        invalidTokenMessage: 'Invalid security token',
-        invalidTokenStatusMessage: 403,
-        excludedMessage: ['GET', 'HEAD', 'OPTIONS'],
-        disableQuery: true
-      })
-    )
-  );
+  // mock();
 }
+
+/**
+ * CSRF token usage.
+ */
+app.use(
+  convert(
+    new CSRF({
+      invalidSessionSecretMessage: 'Invalid session',
+      invalidSessionSecretStatusCode: 403,
+      invalidTokenMessage: 'Invalid security token',
+      invalidTokenStatusMessage: 403,
+      excludedMessage: ['GET', 'HEAD', 'OPTIONS'],
+      disableQuery: true
+    })
+  )
+);
 
 /**
  * Initialize proxy api.

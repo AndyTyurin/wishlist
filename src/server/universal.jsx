@@ -5,24 +5,23 @@ import { matchRoutes } from 'react-router-config';
 import { Provider } from 'react-redux';
 import ReactDOMServer from 'react-dom/server';
 
-import { csrfTokenKey } from 'wl/client/service';
 import { configureReduxStore } from 'wl/client/store';
 
 import { Html } from './html';
 import { App } from './../client/component/app/app';
 import { routes } from './../client/routes';
-import { initialState } from './initial_state';
+import { getInitialState } from './initial_state';
 
 export function universal({ useStaticAssets = false, assetsManifest }) {
   return async ctx =>
     new Promise((resolve) => {
       const path = ctx.request.url;
+      const initialState = getInitialState(ctx.csrf);
       const store = configureReduxStore(initialState);
       // eslint-disable-next-line prefer-destructuring
       const response = ctx.response;
       const branch = matchRoutes(routes, path)[1];
       const routerContext = {};
-      const csrfToken = ctx.csrf;
 
       /**
        * Do not cache server-side rendering pages.
@@ -50,8 +49,6 @@ export function universal({ useStaticAssets = false, assetsManifest }) {
           <Html
             initialState={JSON.stringify(initialState)}
             {...{
-              csrfTokenKey,
-              csrfToken,
               useStaticAssets,
               assetsManifest,
               meta

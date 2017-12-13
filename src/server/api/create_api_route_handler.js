@@ -6,18 +6,20 @@ export function createApiRouteHandler(
   nodeServiceName,
   host,
   port,
-  protocol
+  protocol,
+  endpoint
 ) {
   return convert(
     proxy({
-      host: `${protocol}://${host}:${port}`,
-      jar: true,
+      host: `${protocol}://${host}`,
+      jar: false,
       map: (path) => {
         const serviceUri = `/${apiUri}/${nodeServiceName}`.replace(
           /\/(?=\/)/,
           ''
         );
-        return path.replace(serviceUri, '');
+
+        return path.replace(serviceUri, endpoint);
       }
     })
   );

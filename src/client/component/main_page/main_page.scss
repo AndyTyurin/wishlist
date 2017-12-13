@@ -1,0 +1,9 @@
+@import './../mixin.scss';
+
+.main-page {
+    display: block;
+}
+
+.content {
+    @include fixed-container;
+}

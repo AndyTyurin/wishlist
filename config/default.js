@@ -59,8 +59,8 @@ module.exports = {
     api: {
       search: {
         nodeServiceName: 'search',
-        host: 'https://www.adidas.co.uk',
-        port: 80,
+        host: 'www.adidas.co.uk',
+        endpoint: 'api/suggestions',
         protocol: 'https',
         methods: ['get']
       }

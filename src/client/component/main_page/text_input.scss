@@ -1,0 +1,9 @@
+.text-input {
+    & > input {
+        text-align: left;
+    }
+}
+
+.label {
+    display: none;
+}
