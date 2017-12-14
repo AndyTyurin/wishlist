@@ -60,9 +60,15 @@ yarn run webpack-client
 ```
 
 **Webpack server-side dev server**  
-Run webpack server-side watcher & compiler after client-side
+Run webpack server-side watcher & compiler after client-side.
 ```
 yarn run webpack-server
+```
+
+**Webpack API dev server**  
+Run webpack api watcher.
+```
+yarn run webpack-api
 ```
 
 *Note, webpack client-side must be compiled before server-side.*  
