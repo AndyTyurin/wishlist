@@ -9,12 +9,12 @@ module.exports = {
     /**
      * Default meta keywords for all pages.
      */
-    metaKeywords: ['spritesheet', 'editor', 'sprite', '2d', 'spritesheetboard'],
+    metaKeywords: ['wishlist'],
 
     /**
      * Default meta description for all pages.
      */
-    metaDescription: 'Place your sprites in spritesheets.',
+    metaDescription: 'Find your best products and add to wishlist',
 
     /**
      * Determine protocol how web server will be reached.
@@ -66,12 +66,15 @@ module.exports = {
       },
       wishlist: {
         nodeServiceName: 'wishlist',
-        host: 'localhost',
+        host: 'localhost:',
         endpoint: '/',
         protocol: 'http',
         methods: ['get', 'put', 'del']
       }
     }
+  },
+  apiServer: {
+    port: 8081
   },
   /**
    * Webpack settings.
@@ -88,6 +91,12 @@ module.exports = {
        * Server watcher's port.
        */
       port: 9091
+    },
+    api: {
+      /**
+       * API watchee's port.
+       */
+      port: 9092
     }
   }
 };

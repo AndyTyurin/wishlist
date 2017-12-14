@@ -9,6 +9,9 @@ const getClientConfig = require('./webpack.client.js');
 /** Configuration for server-side platform. */
 const getServerConfig = require('./webpack.server.js');
 
+/** Configuration for api platform. */
+const getApiConfig = require('./webpack.api.js');
+
 /** Webpack constants and utilities. */
 const webpackUtils = require('./webpack.utils.js');
 
@@ -29,8 +32,10 @@ switch (webpackUtils.PLATFORM) {
     break;
   case webpackUtils.SERVER:
     platformConfig = getServerConfig(configurator);
+  case webpackUtils.API:
+    platformConfig = getApiConfig(configurator);
 }
+
 
 /** Merge platform specific configuration. */
 module.exports = merge(getBaseConfig(configurator), platformConfig);
-

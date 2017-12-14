@@ -21,18 +21,22 @@ const webpackUtils = require('./../webpack.utils');
 const webServerPort = config.get('server.port');
 const clientWatcherPort = config.get('webpack.client.port');
 const serverWatcherPort = config.get('webpack.server.port');
+const apiWatcherPort = config.get('webpack.api.port');
 
 /**
  * Determine platform's specific configuration.
  */
 const isClientPlatform = webpackUtils.PLATFORM === webpackUtils.CLIENT;
 const isServerPlatform = webpackUtils.PLATFORM === webpackUtils.SERVER;
+const isApiPlatform = webpackUtils.PLATFORM === webpackUtils.API;
 
 let port = clientWatcherPort;
 
 /** Select appropriate port for watcher. */
 if (isServerPlatform) {
   port = serverWatcherPort;
+} else if (isApiPlatform) {
+  port = apiWatcherPort;
 }
 
 /**
@@ -128,19 +132,21 @@ compiler.plugin('done', (stats) => {
     }
   }
 
-  if (isServerPlatform) {
+  if (isServerPlatform || isApiPlatform) {
     const serverFileName = webpackConfig.output.filename;
     const serverFilePath = path.resolve(tmpDir, serverFileName);
 
     try {
       /** Read content of web server from webpack's memory. */
-      const serverContent = devMiddlewareInstance.fileSystem.readFileSync(path.resolve(
-        __dirname,
-        '../',
-        webpackUtils.BUILD_PATH,
-        'server',
-        serverFileName
-      ));
+      const serverContent = devMiddlewareInstance.fileSystem.readFileSync(
+        path.resolve(
+          __dirname,
+          '../',
+          webpackUtils.BUILD_PATH,
+          isServerPlatform ? 'server' : 'api',
+          serverFileName
+        )
+      );
 
       writeFileToTmpDirectory(serverFileName, serverContent);
     } catch (e) {
@@ -160,13 +166,15 @@ compiler.plugin('done', (stats) => {
   } else if (isClientPlatform) {
     try {
       /** Read content of assets manifest from webpack's memory. */
-      const assetsManifestContent = devMiddlewareInstance.fileSystem.readFileSync(path.resolve(
-        __dirname,
-        '../',
-        webpackUtils.BUILD_PATH,
-        'server',
-        assetsManifestFileName
-      ));
+      const assetsManifestContent = devMiddlewareInstance.fileSystem.readFileSync(
+        path.resolve(
+          __dirname,
+          '../',
+          webpackUtils.BUILD_PATH,
+          'server',
+          assetsManifestFileName
+        )
+      );
 
       writeFileToTmpDirectory(assetsManifestFileName, assetsManifestContent);
     } catch (e) {
@@ -234,10 +242,14 @@ if (isServerPlatform) {
     };
     await new Promise((resolve) => {
       ping(() => {
-        resolve(convert(proxy({
-          host: `http://localhost:${webServerPort}`,
-          followRedirect: false
-        }))(ctx, next));
+        resolve(
+          convert(
+            proxy({
+              host: `http://localhost:${webServerPort}`,
+              followRedirect: false
+            })
+          )(ctx, next)
+        );
       });
     });
   });
