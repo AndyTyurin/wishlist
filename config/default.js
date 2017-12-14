@@ -63,6 +63,13 @@ module.exports = {
         endpoint: 'api/suggestions',
         protocol: 'https',
         methods: ['get']
+      },
+      wishlist: {
+        nodeServiceName: 'wishlist',
+        host: 'localhost',
+        endpoint: '/',
+        protocol: 'http',
+        methods: ['get', 'put', 'del']
       }
     }
   },

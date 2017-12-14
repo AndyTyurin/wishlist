@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import Service from './service';
 
 export class SearchService extends Service {

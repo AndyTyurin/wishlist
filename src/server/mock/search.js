@@ -1,9 +1,11 @@
-import suggestionsJson from './suggestions.json';
+import config from 'config';
+
+import searchJson from './search.json';
 import createMockApi from './create_mock_api';
 
 export function search() {
-  createMockApi('search', (nock) => {
-    nock.get(/.*/g).reply(200, suggestionsJson);
+  createMockApi(config.get('server.api.search.nodeServiceName'), (nock) => {
+    nock.get(/.*/g).reply(200, searchJson);
   });
 }
 

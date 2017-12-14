@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
-import { SearchService } from 'wl/client/service';
+import { SearchService, getService } from 'wl/client/service';
 
 import {
   CHANGE_SEARCH_QUERY,
@@ -9,42 +9,28 @@ import {
 } from './search_actions_types';
 
 export function changeSearchQuery(query) {
-  return (dispatch, getProps) => {
-    /**
-     * tbd @andytyurin
-     * State can be enrich by services before, on stage
-     * of client-side initialization in entry point.
-     * But right now enough to have this one.
-     */
-    const {
-      config: { baseUri, csrfToken, services: { search: { name } } }
-    } = getProps();
-    const service = new SearchService(name, {
-      baseUri,
-      csrfTokenValue: csrfToken
-    });
+  return async (dispatch, getState) => {
+    const service = getService(SearchService, getState());
 
     dispatch({
       type: CHANGE_SEARCH_QUERY,
       payload: { query }
     });
 
-    service
-      .search(query)
-      .then(res =>
-        dispatch({
-          type: CHANGE_SEARCH_QUERY_RESPONSE,
-          payload: {
-            query,
-            products: res.products
-          }
-        })
-      )
-      .catch(err =>
-        dispatch({
-          type: CHANGE_SEARCH_QUERY_ERROR,
-          payload: err
-        })
-      );
+    try {
+      const { products } = await service.search(query);
+      dispatch({
+        type: CHANGE_SEARCH_QUERY_RESPONSE,
+        payload: {
+          query,
+          products
+        }
+      });
+    } catch (err) {
+      dispatch({
+        type: CHANGE_SEARCH_QUERY_ERROR,
+        payload: err
+      });
+    }
   };
 }

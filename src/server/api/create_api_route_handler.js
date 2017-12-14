@@ -7,7 +7,7 @@ export function createApiRouteHandler(
   host,
   port,
   protocol,
-  endpoint
+  endpoint = '/'
 ) {
   return convert(
     proxy({

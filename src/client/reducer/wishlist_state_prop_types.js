@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 
 export const searchStatePropTypes = {
-  search: {
-    lastSuccessQuery: PropTypes.string.isRequired,
+  wishlist: {
     products: PropTypes.array.isRequired,
     isProgress: PropTypes.bool.isRequired,
     isError: PropTypes.bool.isRequired

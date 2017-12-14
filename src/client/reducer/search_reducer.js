@@ -5,7 +5,8 @@ import defaultSearchState from './search_state';
 function changeSearchQuery(state) {
   return {
     ...state,
-    isProgress: true
+    isProgress: true,
+    isError: false
   };
 }
 
@@ -14,7 +15,10 @@ function changeSearchQueryResponse(state, { query, products }) {
     ...state,
     lastSuccessQuery: query,
     isProgress: false,
-    products: products.map(({ suggestion, subTitle, image }) => ({
+    products: products.map(({
+      suggestion, subTitle, image, url
+    }) => ({
+      url,
       title: suggestion,
       subTitle,
       imageSource: image.replace('sw=60', 'sw=256').replace('sh=60', 'sh=256')
