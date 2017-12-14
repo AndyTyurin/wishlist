@@ -16,6 +16,15 @@
     &-spinner {
         background-image: url('./icons/spinner.svg');
     }
+
+    &-heart {
+        background-image: url('./icons/heart.svg');
+        filter: brightness(0);
+
+        &.active {
+            filter: none;
+        }
+    }
 }
 
 .active {

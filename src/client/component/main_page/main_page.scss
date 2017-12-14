@@ -1,9 +1,25 @@
+@import './../media.scss';
 @import './../mixin.scss';
 
 .main-page {
     display: block;
 }
 
-.content {
+.search {
     @include fixed-container;
+}
+
+.products {
+    margin-top: 4em;
+    background: #efefef;
+    position: absolute;
+    top: 150px;
+    left: 0;
+    right: 0;
+}
+
+@include mobile-only {
+    .search {
+        @include flexible-container;
+    }
 }

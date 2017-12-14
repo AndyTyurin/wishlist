@@ -9,18 +9,24 @@ function changeSearchQuery(state) {
   };
 }
 
-function changeSearchQueryResponse(state, { query }) {
+function changeSearchQueryResponse(state, { query, products }) {
   return {
     ...state,
     lastSuccessQuery: query,
-    isProgress: false
+    isProgress: false,
+    products: products.map(({ suggestion, subTitle, image }) => ({
+      title: suggestion,
+      subTitle,
+      imageSource: image.replace('sw=60', 'sw=256').replace('sh=60', 'sh=256')
+    }))
   };
 }
 
 function changeSearchQueryError(state) {
   return {
     ...state,
-    isProgress: false
+    isProgress: false,
+    isError: true
   };
 }
 

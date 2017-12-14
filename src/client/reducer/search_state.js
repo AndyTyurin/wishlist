@@ -1,5 +1,8 @@
 export const searchState = {
-  query: ''
+  lastSuccessQuery: '',
+  products: [],
+  isProgress: false,
+  isError: false
 };
 
 export default searchState;

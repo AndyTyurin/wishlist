@@ -15,6 +15,7 @@ import TextInput from './../text_input/text_input';
 
 import styles from './main_page.scss';
 import textInputStyles from './text_input.scss';
+import { ProductsCatalog } from '../products_catalog/products_catalog';
 
 const mapStateToProps = state => pick(state, ['search']);
 const mapDispatchToProps = dispatch =>
@@ -55,7 +56,7 @@ export class MainPage extends React.Component {
 
     return (
       <div className={theme('main-page')}>
-        <div className={theme('content')}>
+        <div className={theme('search')}>
           <Heading size="xl">Find your best</Heading>
           <TextInput
             value={query}
@@ -64,6 +65,16 @@ export class MainPage extends React.Component {
             placeholder={SEARCH_HINT}
           />
         </div>
+        {this.renderProductsCatalog()}
+      </div>
+    );
+  }
+
+  renderProductsCatalog() {
+    const { search: { products }, theme } = this.props;
+    return (
+      <div className={theme('products')}>
+        <ProductsCatalog products={products} />
       </div>
     );
   }

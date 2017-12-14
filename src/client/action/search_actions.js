@@ -31,11 +31,12 @@ export function changeSearchQuery(query) {
 
     service
       .search(query)
-      .then(() =>
+      .then(res =>
         dispatch({
           type: CHANGE_SEARCH_QUERY_RESPONSE,
           payload: {
-            query
+            query,
+            products: res.products
           }
         })
       )
