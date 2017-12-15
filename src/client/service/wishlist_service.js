@@ -10,7 +10,7 @@ export class WishlistService extends Service {
   }
 
   getWishlist() {
-    return this.get();
+    return this.get('/');
   }
 }
 

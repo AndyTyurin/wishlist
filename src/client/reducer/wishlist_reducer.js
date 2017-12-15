@@ -68,7 +68,7 @@ function getWishlist(state) {
 function getWishlistResponse(state, { products }) {
   return {
     ...state,
-    products: products.map(product => ({ ...product, id: hash(product.url) }))
+    products: products.map(product => ({ ...product, id: hash(product.url), desired: true }))
   };
 }
 
