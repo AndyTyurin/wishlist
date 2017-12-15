@@ -25,6 +25,7 @@ import TextInput from './../text_input/text_input';
 
 import styles from './main_page.scss';
 import textInputStyles from './text_input.scss';
+import labelStyles from './label.scss';
 import { ProductsCatalog } from '../products_catalog/products_catalog';
 
 const mapStateToProps = state => pick(state, ['search', 'wishlist']);
@@ -39,7 +40,8 @@ const SEARCH_DEBOUNCE_TIME_MS = 500;
 @connect(mapStateToProps, mapDispatchToProps)
 @Theme(styles, 'MainPage')
 @ThemeProvider({
-  TextInput: textInputStyles
+  TextInput: textInputStyles,
+  Label: labelStyles
 })
 @Memoize({
   products: productsSelectors.getProducts
@@ -88,6 +90,7 @@ export class MainPage extends React.Component {
             iconName={this.getSearchSpinnerIconName()}
             onChange={this.handleSearchQueryChange}
             placeholder={SEARCH_HINT}
+            label="For example: Stan Smith"
           />
         </div>
         {this.renderProductsCatalog()}

@@ -7,12 +7,14 @@ import { bindActionCreators } from 'redux';
 import mapValues from 'lodash/mapValues';
 import pick from 'lodash/pick';
 import { renderRoutes } from 'react-router-config';
+import { autobind } from 'core-decorators';
 
 import { Theme, routerConfigPropTypes } from 'wl/util';
 import { wishlistActions, wishlistActionsPropTypes } from 'wl/client/action';
 import { wishlistStatePropTypes } from 'wl/client/reducer';
 
 import Header from './../header/header';
+import { MAIN_PAGE_ROUTE, WISHLIST_PAGE_ROUTE } from './../../routes';
 
 import styles from './layout.scss';
 
@@ -32,19 +34,40 @@ export class Layout extends React.PureComponent {
   };
 
   componentDidMount() {
-    console.log('call');
     this.props.wishlistActions.getWishlist();
   }
 
   render() {
-    const { theme, wishlist: { products } } = this.props;
+    const { theme, wishlist: { products }, route: { routes } } = this.props;
 
     return (
       <div className={theme('layout')}>
-        <Header wishlistItems={products.length} />
-        {renderRoutes(this.props.route.routes)}
+        <Header
+          wishlistItems={products.length}
+          onWishlistClick={this.handleWishlistClick}
+          onMainPageClick={this.handleMainPageClick}
+        />
+        {renderRoutes(routes)}
       </div>
     );
+  }
+
+  @autobind
+  handleWishlistClick() {
+    this.changeRoute(WISHLIST_PAGE_ROUTE);
+  }
+
+  @autobind
+  handleMainPageClick() {
+    this.changeRoute(MAIN_PAGE_ROUTE);
+  }
+
+  changeRoute(path) {
+    const { history } = this.props;
+
+    if (history.location.pathname !== path) {
+      history.push(path);
+    }
   }
 }
 
