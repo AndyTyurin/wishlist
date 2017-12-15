@@ -35,12 +35,14 @@ const SUB_TITLE_SHORT_LENGTH = 32;
 export class Product extends React.Component {
   static propTypes = {
     ...productPropTypes,
-    theme: PropTypes.func.isRequired
+    theme: PropTypes.func.isRequired,
+    onProductLoad: PropTypes.func
   };
 
   static defaultProps = {
     desired: false,
-    onClick: noop
+    onClick: noop,
+    onProductLoad: noop
   };
 
   static getShortTitleName(title) {
@@ -68,7 +70,11 @@ export class Product extends React.Component {
     return (
       <div className={theme('product')}>
         <div className={theme('product-image')} onClick={this.handleClick}>
-          <img src={imageSource} alt={`${title} | ${subTitle}`} />
+          <img
+            src={imageSource}
+            alt={`${title} | ${subTitle}`}
+            onLoad={this.handleImageLoad}
+          />
         </div>
         <div className={theme('product-header')}>
           <div className={theme('product-name')}>
@@ -88,6 +94,11 @@ export class Product extends React.Component {
   @autobind
   handleClick() {
     this.props.onClick(this.props.id);
+  }
+
+  @autobind
+  handleImageLoad() {
+    this.props.onProductLoad();
   }
 }
 

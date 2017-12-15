@@ -2,7 +2,6 @@
 
 .products-catalog {
     display: flex;
-    // flex-wrap: wrap;
     justify-content: center;
     left: 0;
     right: 0;
@@ -10,7 +9,8 @@
 }
 
 .content {
-    max-width: 1120px;
+    max-width: 1152px;
+    margin-right: -32px;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -20,15 +20,12 @@
     width: 256px;
     margin-right: 32px;
     margin-bottom: 32px;
-
-    &:nth-child(4n+4) {
-        margin-right: 0
-    }
 }
 
 @include mobile-only {
     .content {
         max-width: 256px;
+        margin-right: 0;
     }
 
     .product {
@@ -39,6 +36,7 @@
 @include tablet-only {
     .content {
         max-width: 544px;
+        margin-right: 0;
     }
 
     .product {
@@ -51,6 +49,7 @@
 @include desktop-only {
     .content {
         max-width: 832px;
+        margin-right: 0;
     }
 
     .product {

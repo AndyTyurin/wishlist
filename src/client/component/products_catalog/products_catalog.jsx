@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
+import { autobind } from 'core-decorators';
 
 import { Theme } from 'wl/util';
 
@@ -13,13 +14,21 @@ export class ProductsCatalog extends React.Component {
   static propTypes = {
     products: PropTypes.arrayOf(productPropTypes),
     theme: PropTypes.func.isRequired,
-    onProductClick: PropTypes.func
+    onProductClick: PropTypes.func,
+    onProductsLoad: PropTypes.func
   };
 
   static defaultProps = {
     products: [],
-    onProductClick: noop
+    onProductClick: noop,
+    onProductsLoad: noop
   };
+
+  constructor(props) {
+    super(props);
+
+    this.numberOfProductsLoaded = 0;
+  }
 
   render() {
     const { theme } = this.props;
@@ -35,9 +44,23 @@ export class ProductsCatalog extends React.Component {
 
     return products.map(product => (
       <div className={theme('product')}>
-        <Product {...product} onClick={this.props.onProductClick} />
+        <Product
+          {...product}
+          onClick={this.props.onProductClick}
+          onProductLoad={this.handleProductLoad}
+        />
       </div>
     ));
+  }
+
+  @autobind
+  handleProductLoad() {
+    this.numberOfProductsLoaded += 1;
+
+    if (this.props.products.length === this.numberOfProductsLoaded) {
+      this.props.onProductsLoad();
+      this.numberOfProductsLoaded = 0;
+    }
   }
 }
 

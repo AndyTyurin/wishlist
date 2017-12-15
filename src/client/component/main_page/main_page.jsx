@@ -69,7 +69,8 @@ export class MainPage extends React.Component {
     super(props);
 
     this.state = {
-      query: ''
+      query: '',
+      productsLoaded: false
     };
   }
 
@@ -99,12 +100,17 @@ export class MainPage extends React.Component {
   }
 
   renderProductsCatalog() {
-    const { products, theme } = this.props;
+    const { products, theme, search: { isProgress } } = this.props;
+    const { productsLoaded } = this.state;
+    const hiddenClassName =
+      isProgress || !productsLoaded ? 'products-hidden' : undefined;
+
     return (
-      <div className={theme('products')}>
+      <div className={theme('products', hiddenClassName)}>
         <ProductsCatalog
           products={products}
           onProductClick={this.handleProductClick}
+          onProductsLoad={this.handleProductsLoad}
         />
       </div>
     );
@@ -134,8 +140,20 @@ export class MainPage extends React.Component {
     }
   }
 
+  @autobind
+  handleProductsLoad() {
+    this.setState({
+      productsLoaded: true
+    });
+  }
+
   fetchContent(value) {
     const { searchActions: { changeSearchQuery } } = this.props;
+
+    this.setState({
+      productsLoaded: false
+    });
+
     changeSearchQuery(value);
   }
 
