@@ -3,11 +3,7 @@ const services = {};
 /**
  * Get service singleton.
  */
-export function getService(Service, state) {
-  const {
-    config: { baseUri, csrfToken, services: { search: { name } } }
-  } = state;
-
+export function getService(Service, { baseUri, csrfToken, name }) {
   if (!services[name]) {
     services[name] = new Service(name, {
       baseUri,

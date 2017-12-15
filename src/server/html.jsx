@@ -14,7 +14,7 @@ export const Html = (props) => {
     useStaticAssets,
     assetsManifest = {},
     meta = {
-      title: 'Spritesheet board',
+      title: 'Wishlist',
       keywords: DEFAULT_META_KEYWORDS,
       description: DEFAULT_META_DESCRIPTION,
       noIndex: false

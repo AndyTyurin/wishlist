@@ -32,37 +32,37 @@ export class Service {
     });
   }
 
-  get(endpoint, { query, headers } = {}) {
+  get(endpoint, { query, headers = {} } = {}) {
     return this._axios
       .get(`${endpoint}${query ? `?${qs.stringify(query)}` : ''}`, { headers })
       .then(Service._getResponseData)
       .catch(Service._throwError);
   }
 
-  post(endpoint, { data, headers } = {}) {
+  post(endpoint, { data, headers = {} } = {}) {
     return this._axios
-      .post(endpoint, data, { headers })
+      .post(String(endpoint), data, { headers })
       .then(Service._getResponseData)
       .catch(Service._throwError);
   }
 
-  put(endpoint, { data, headers } = {}) {
+  put(endpoint, { data, headers = {} } = {}) {
     return this._axios
-      .put(endpoint, data, { headers })
+      .put(String(endpoint), data, { headers })
       .then(this._getResponseData)
       .catch(this._throwError);
   }
 
-  del(endpoint, { headers } = {}) {
+  del(endpoint, { headers = {} } = {}) {
     return this._axios
-      .del(endpoint, null, { headers })
+      .delete(String(endpoint), null, { headers })
       .then(Service._getResponseData)
       .catch(Service._throwError);
   }
 
-  patch(endpoint, { data, headers } = {}) {
+  patch(endpoint, { data, headers = {} } = {}) {
     return this._axios
-      .patch(endpoint, data, { headers })
+      .patch(String(endpoint), data, { headers })
       .then(Service._getResponseData)
       .catch(Service._throwError);
   }

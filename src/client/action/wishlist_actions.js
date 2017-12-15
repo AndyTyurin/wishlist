@@ -13,7 +13,10 @@ import {
 
 export function addToWishlist(product) {
   return async (dispatch, getState) => {
-    const service = getService(WishlistService, getState());
+    const {
+      config: { baseUri, csrfToken, services: { wishlist: { name } } }
+    } = getState();
+    const service = getService(WishlistService, { baseUri, csrfToken, name });
 
     dispatch({
       type: ADD_TO_WISHLIST
@@ -23,34 +26,43 @@ export function addToWishlist(product) {
       await service.addToWishlist(product);
 
       dispatch({
-        type: ADD_TO_WISHLIST_RESPONSE
+        type: ADD_TO_WISHLIST_RESPONSE,
+        payload: { product }
       });
-    } catch (err) {
+    } catch (error) {
       dispatch({
         type: ADD_TO_WISHLIST_ERROR,
-        payload: err
+        payload: {
+          error
+        }
       });
     }
   };
 }
 
-export function removeFromWishlist(productUrl) {
+export function removeFromWishlist(id) {
   return async (dispatch, getState) => {
-    const service = getService(WishlistService, getState());
+    const {
+      config: { baseUri, csrfToken, services: { wishlist: { name } } }
+    } = getState();
+    const service = getService(WishlistService, { baseUri, csrfToken, name });
 
     dispatch({
       type: REMOVE_FROM_WISHLIST
     });
 
     try {
-      await service.removeFromWishlist(productUrl);
+      await service.removeFromWishlist(id);
       dispatch({
-        type: REMOVE_FROM_WISHLIST_RESPONSE
+        type: REMOVE_FROM_WISHLIST_RESPONSE,
+        payload: { id }
       });
-    } catch (err) {
+    } catch (error) {
       dispatch({
         type: REMOVE_FROM_WISHLIST_ERROR,
-        payload: err
+        payload: {
+          error
+        }
       });
     }
   };
@@ -58,21 +70,29 @@ export function removeFromWishlist(productUrl) {
 
 export function getWishlist() {
   return async (dispatch, getState) => {
-    const service = getService(WishlistService, getState());
+    const {
+      config: { baseUri, csrfToken, services: { wishlist: { name } } }
+    } = getState();
+    const service = getService(WishlistService, { baseUri, csrfToken, name });
 
     dispatch({
       type: GET_WISHLIST
     });
 
     try {
-      await service.getWishlist();
+      const wishlist = await service.getWishlist();
       dispatch({
-        type: GET_WISHLIST_RESPONSE
+        type: GET_WISHLIST_RESPONSE,
+        payload: {
+          products: wishlist.products
+        }
       });
-    } catch (err) {
+    } catch (error) {
       dispatch({
         type: GET_WISHLIST_ERROR,
-        payload: err
+        payload: {
+          error
+        }
       });
     }
   };

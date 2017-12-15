@@ -32,6 +32,7 @@ switch (webpackUtils.PLATFORM) {
     break;
   case webpackUtils.SERVER:
     platformConfig = getServerConfig(configurator);
+    break;
   case webpackUtils.API:
     platformConfig = getApiConfig(configurator);
 }

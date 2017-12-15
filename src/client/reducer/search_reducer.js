@@ -1,4 +1,5 @@
 import { searchActionsTypes } from 'wl/client/action';
+import { hash } from 'wl/util';
 
 import defaultSearchState from './search_state';
 
@@ -19,6 +20,7 @@ function changeSearchQueryResponse(state, { query, products }) {
       suggestion, subTitle, image, url
     }) => ({
       url,
+      id: hash(url),
       title: suggestion,
       subTitle,
       imageSource: image.replace('sw=60', 'sw=256').replace('sh=60', 'sh=256')
@@ -26,7 +28,8 @@ function changeSearchQueryResponse(state, { query, products }) {
   };
 }
 
-function changeSearchQueryError(state) {
+function changeSearchQueryError(state, { error }) {
+  console.error(error);
   return {
     ...state,
     isProgress: false,

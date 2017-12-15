@@ -66,8 +66,8 @@ module.exports = {
       },
       wishlist: {
         nodeServiceName: 'wishlist',
-        host: 'localhost:',
-        endpoint: '/',
+        host: 'localhost:8081',
+        endpoint: '/wishlist',
         protocol: 'http',
         methods: ['get', 'put', 'del']
       }

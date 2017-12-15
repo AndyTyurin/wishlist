@@ -1,5 +1,6 @@
-import findIndex from 'lodash/findIndex';
+import filter from 'lodash/filter';
 
+import { hash } from 'wl/util';
 import { wishlistActionsTypes } from 'wl/client/action';
 
 import defaultWishlistState from './wishlist_state';
@@ -13,17 +14,16 @@ function addToWishlist(state) {
 }
 
 function addToWishlistResponse(state, { product }) {
+  product = { ...product, desired: true };
   return {
     ...state,
-    products: {
-      ...state.products,
-      product
-    },
+    products: [...state.products, product],
     isProgress: false
   };
 }
 
-function addToWishlistError(state) {
+function addToWishlistError(state, { error }) {
+  console.error(error);
   return {
     ...state,
     isProgress: false,
@@ -39,15 +39,17 @@ function removeFromWishlist(state) {
   };
 }
 
-function removeFromWishlistResponse(state, { productUrl }) {
-  const productIdx = findIndex(state.products, { url: productUrl });
+function removeFromWishlistResponse(state, { id }) {
   return {
     ...state,
-    products: state.products.splice(productIdx, 1)
+    products: filter(state.products, p => p.id !== id),
+    isProgress: false,
+    isError: false
   };
 }
 
-function removeFromWishlistError(state) {
+function removeFromWishlistError(state, { error }) {
+  console.error(error);
   return {
     ...state,
     isProgress: false,
@@ -66,11 +68,12 @@ function getWishlist(state) {
 function getWishlistResponse(state, { products }) {
   return {
     ...state,
-    products
+    products: products.map(product => ({ ...product, id: hash(product.url) }))
   };
 }
 
-function getWishlistError(state) {
+function getWishlistError(state, { error }) {
+  console.error(error);
   return {
     ...state,
     isProgress: false,
@@ -78,7 +81,10 @@ function getWishlistError(state) {
   };
 }
 
-export function searchReducer(state = defaultWishlistState, { type, payload }) {
+export function wishlistReducer(
+  state = defaultWishlistState,
+  { type, payload }
+) {
   switch (type) {
     case wishlistActionsTypes.ADD_TO_WISHLIST:
       return addToWishlist(state, payload);
@@ -103,4 +109,4 @@ export function searchReducer(state = defaultWishlistState, { type, payload }) {
   }
 }
 
-export default searchReducer;
+export default wishlistReducer;

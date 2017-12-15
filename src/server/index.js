@@ -5,8 +5,9 @@ import CSRF from 'koa-csrf';
 import Router from 'koa-router';
 import route from 'koa-route';
 import session from 'koa-session';
+// import session from 'koa-session2';
 import bodyParser from 'koa-bodyparser';
-import compose from 'koa-compose';
+// import session from 'koa-generic-session';
 import convert from 'koa-convert';
 import proxy from 'koa-proxy';
 import logger from 'koa-logger';
@@ -50,21 +51,30 @@ if (isDevelopment) {
   // mock();
 }
 
+app.use(bodyParser());
+
+app.use(session(app));
+
 /**
  * CSRF token usage.
  */
 app.use(
-  convert(
-    new CSRF({
-      invalidSessionSecretMessage: 'Invalid session',
-      invalidSessionSecretStatusCode: 403,
-      invalidTokenMessage: 'Invalid security token',
-      invalidTokenStatusMessage: 403,
-      excludedMessage: ['GET', 'HEAD', 'OPTIONS'],
-      disableQuery: true
-    })
-  )
+  new CSRF({
+    invalidSessionSecretMessage: 'Invalid session',
+    invalidSessionSecretStatusCode: 403,
+    invalidTokenMessage: 'Invalid security token',
+    invalidTokenStatusMessage: 403,
+    excludedMessage: ['GET', 'HEAD', 'OPTIONS'],
+    disableQuery: true
+  })
 );
+
+app.use(logger());
+
+router.get('/health', (ctx) => {
+  ctx.response.status = 200;
+  ctx.response.body = '';
+});
 
 /**
  * Initialize proxy api.
@@ -82,23 +92,9 @@ router.get(
   universal({ useStaticAssets: !isDevelopment, assetsManifest })
 );
 
-const middlewareBatch = [
-  logger(),
-  session(app),
+app.use(router.routes());
 
-  /**
-   * Health checking is required and used both
-   * in development & production modes.
-   *
-   * Be aware of removing it!
-   */
-  route.get('/health', (ctx) => {
-    ctx.response.status = 200;
-    ctx.response.body = '';
-  }),
-
-  bodyParser(),
-  router.routes(),
+app.use(
   router.allowedMethods({
     throw: true,
     // eslint-disable-next-line new-cap
@@ -106,10 +102,7 @@ const middlewareBatch = [
     // eslint-disable-next-line new-cap
     methodNotAllowed: () => new Boom.methodNotAllowed()
   })
-];
-
-/** Proceed middleware batch. */
-app.use(compose(middlewareBatch));
+);
 
 /** Start web-server. */
 app.listen(port, () => {

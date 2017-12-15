@@ -15,6 +15,8 @@ import styles from './product.scss';
 import headingStyles from './heading.scss';
 
 export const productPropTypes = {
+  url: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   subTitle: PropTypes.string.isRequired,
   imageSource: PropTypes.string.isRequired,
@@ -82,7 +84,7 @@ export class Product extends React.Component {
 
   @autobind
   handleClick() {
-    this.props.onClick();
+    this.props.onClick(this.props.id);
   }
 }
 

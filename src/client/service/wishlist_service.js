@@ -1,8 +1,8 @@
 import Service from './service';
 
-export class SearchService extends Service {
+export class WishlistService extends Service {
   addToWishlist(product) {
-    return this.put(product.id, product);
+    return this.put(product.id, { data: product });
   }
 
   removeFromWishlist(productId) {
@@ -14,4 +14,4 @@ export class SearchService extends Service {
   }
 }
 
-export default SearchService;
+export default WishlistService;

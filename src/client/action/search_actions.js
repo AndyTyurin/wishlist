@@ -10,7 +10,10 @@ import {
 
 export function changeSearchQuery(query) {
   return async (dispatch, getState) => {
-    const service = getService(SearchService, getState());
+    const {
+      config: { baseUri, csrfToken, services: { search: { name } } }
+    } = getState();
+    const service = getService(SearchService, { baseUri, csrfToken, name });
 
     dispatch({
       type: CHANGE_SEARCH_QUERY,
@@ -26,10 +29,12 @@ export function changeSearchQuery(query) {
           products
         }
       });
-    } catch (err) {
+    } catch (error) {
       dispatch({
         type: CHANGE_SEARCH_QUERY_ERROR,
-        payload: err
+        payload: {
+          error
+        }
       });
     }
   };

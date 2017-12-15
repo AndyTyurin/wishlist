@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import noop from 'lodash/noop';
 
 import { Theme } from 'wl/util';
 
@@ -11,11 +12,13 @@ import styles from './products_catalog.scss';
 export class ProductsCatalog extends React.Component {
   static propTypes = {
     products: PropTypes.arrayOf(productPropTypes),
-    theme: PropTypes.func.isRequired
+    theme: PropTypes.func.isRequired,
+    onProductClick: PropTypes.func
   };
 
   static defaultProps = {
-    products: []
+    products: [],
+    onProductClick: noop
   };
 
   render() {
@@ -30,7 +33,7 @@ export class ProductsCatalog extends React.Component {
 
     return products.map(product => (
       <div className={theme('product')}>
-        <Product {...product} />
+        <Product {...product} onClick={this.props.onProductClick} />
       </div>
     ));
   }

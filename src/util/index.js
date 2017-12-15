@@ -9,6 +9,7 @@ import { keys } from './keys';
 import { Memoize } from './memoize';
 import { shallowCompare } from './shallow_compare';
 import { listeners } from './listeners';
+import { hash } from './hash';
 
 export {
   routerConfigPropTypes,
@@ -22,7 +23,8 @@ export {
   keys,
   Memoize,
   shallowCompare,
-  listeners
+  listeners,
+  hash
 };
 
 export default {
@@ -37,5 +39,6 @@ export default {
   keys,
   Memoize,
   shallowCompare,
-  listeners
+  listeners,
+  hash
 };
