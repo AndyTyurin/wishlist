@@ -97,7 +97,6 @@ export class MainPage extends React.Component {
 
   renderProductsCatalog() {
     const { products, theme } = this.props;
-    console.log(this.props);
     return (
       <div className={theme('products')}>
         <ProductsCatalog
