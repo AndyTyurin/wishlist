@@ -1,6 +1,5 @@
 @mixin fixed-container {
-    min-width: 940px;
-    width: 960px;
+    max-width: 960px;
     padding: 0 10px;
     box-sizing: border-box;
     margin: 0 auto;

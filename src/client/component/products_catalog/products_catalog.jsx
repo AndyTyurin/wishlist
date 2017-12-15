@@ -24,7 +24,9 @@ export class ProductsCatalog extends React.Component {
   render() {
     const { theme } = this.props;
     return (
-      <div className={theme('products-catalog')}>{this.renderProducts()}</div>
+      <div className={theme('products-catalog')}>
+        <div className={theme('content')}>{this.renderProducts()}</div>
+      </div>
     );
   }
 

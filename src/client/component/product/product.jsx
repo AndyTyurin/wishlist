@@ -12,6 +12,7 @@ import Heading from './../heading/heading';
 import Icon from './../icon/icon';
 
 import styles from './product.scss';
+import labelStyles from './label.scss';
 import headingStyles from './heading.scss';
 
 export const productPropTypes = {
@@ -66,17 +67,19 @@ export class Product extends React.Component {
 
     return (
       <div className={theme('product')}>
+        <div className={theme('product-image')} onClick={this.handleClick}>
+          <img src={imageSource} alt={`${title} | ${subTitle}`} />
+        </div>
         <div className={theme('product-header')}>
           <div className={theme('product-name')}>
-            <Heading size="m">{getShortTitleName(title)}</Heading>
-            <Label size="m">{getShortSubtitleName(subTitle)}</Label>
+            <Heading size="s">{getShortTitleName(title)}</Heading>
+            <Label size="s" styles={labelStyles}>
+              {getShortSubtitleName(subTitle)}
+            </Label>
           </div>
           <div className={theme('wishlist-icon')} onClick={this.handleClick}>
             <Icon name="heart" active={desired} />
           </div>
-        </div>
-        <div className={theme('product-image')} onClick={this.handleClick}>
-          <img src={imageSource} alt={`${title} | ${subTitle}`} />
         </div>
       </div>
     );

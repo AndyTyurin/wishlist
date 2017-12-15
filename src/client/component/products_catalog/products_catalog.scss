@@ -1,17 +1,61 @@
+@import './../media.scss';
+
 .products-catalog {
     display: flex;
-    flex-wrap: wrap;
+    // flex-wrap: wrap;
     justify-content: center;
     left: 0;
     right: 0;
     padding: 4em 2em;
 }
 
-.product {
-    margin-right: 4%;
-    margin-bottom: 4%;
+.content {
+    max-width: 1120px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
 
-    &:first-child {
-        margin-left: 0;
+.product {
+    width: 256px;
+    margin-right: 32px;
+    margin-bottom: 32px;
+
+    &:nth-child(4n+4) {
+        margin-right: 0
+    }
+}
+
+@include mobile-only {
+    .content {
+        max-width: 256px;
+    }
+
+    .product {
+        margin-right: 0
+    }
+}
+
+@include tablet-only {
+    .content {
+        max-width: 544px;
+    }
+
+    .product {
+        &:nth-child(even) {
+            margin-right: 0
+        }
+    }
+}
+
+@include desktop-only {
+    .content {
+        max-width: 832px;
+    }
+
+    .product {
+        &:nth-child(3n+3) {
+            margin-right: 0
+        }
     }
 }
