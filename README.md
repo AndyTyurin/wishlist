@@ -52,7 +52,6 @@ yarn install
 ```
 
 ### Development
-Be *DRY.KISS.SOLID*.  
 For development purposes there are three terminals necessary to use in same time (client-side, server-side, api).  
 
 **Webpack client-side dev server**  
