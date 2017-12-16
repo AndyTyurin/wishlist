@@ -12,7 +12,7 @@ import styles from './products_catalog.scss';
 @Theme(styles, 'ProductCatalog')
 export class ProductsCatalog extends React.Component {
   static propTypes = {
-    products: PropTypes.arrayOf(productPropTypes),
+    products: PropTypes.arrayOf(PropTypes.shape(productPropTypes)),
     theme: PropTypes.func.isRequired,
     onProductClick: PropTypes.func,
     onProductsLoad: PropTypes.func
@@ -43,7 +43,7 @@ export class ProductsCatalog extends React.Component {
     const { products, theme } = this.props;
 
     return products.map(product => (
-      <div className={theme('product')}>
+      <div className={theme('product')} key={product.id}>
         <Product
           {...product}
           onClick={this.props.onProductClick}

@@ -22,6 +22,7 @@ import { productsSelectors } from 'wl/client/select';
 import { Theme, ThemeProvider, Memoize } from 'wl/util';
 import Heading from './../heading/heading';
 import TextInput from './../text_input/text_input';
+import { productPropTypes } from './../product/product';
 
 import styles from './main_page.scss';
 import textInputStyles from './text_input.scss';
@@ -48,20 +49,11 @@ const SEARCH_DEBOUNCE_TIME_MS = 500;
 })
 export class MainPage extends React.Component {
   static propTypes = {
-    ...searchActionsPropTypes,
-    ...wishlistActionsPropTypes,
+    searchActions: searchActionsPropTypes.isRequired,
+    wishlistActions: wishlistActionsPropTypes.isRequired,
     ...searchStatePropTypes,
     ...wishlistStatePropTypes,
-    products: PropTypes.arrayOf(
-      PropTypes.shape({
-        url: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        subTitle: PropTypes.string.isRequired,
-        imageSource: PropTypes.string.isRequired,
-        desired: PropTypes.bool
-      })
-    ).isRequired,
+    products: PropTypes.arrayOf(PropTypes.shape(productPropTypes)).isRequired,
     theme: PropTypes.func.isRequired
   };
 
@@ -104,7 +96,6 @@ export class MainPage extends React.Component {
     const { productsLoaded } = this.state;
     const hiddenClassName =
       isProgress || !productsLoaded ? 'products-hidden' : undefined;
-
     return (
       <div className={theme('products', hiddenClassName)}>
         <ProductsCatalog

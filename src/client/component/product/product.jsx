@@ -17,7 +17,7 @@ import headingStyles from './heading.scss';
 
 export const productPropTypes = {
   url: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   subTitle: PropTypes.string.isRequired,
   imageSource: PropTypes.string.isRequired,

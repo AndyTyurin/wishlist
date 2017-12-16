@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/no-unused-prop-types */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import mapValues from 'lodash/mapValues';
@@ -9,14 +9,12 @@ import pick from 'lodash/pick';
 import { renderRoutes } from 'react-router-config';
 import { autobind } from 'core-decorators';
 
-import { Theme, routerConfigPropTypes } from 'wl/util';
+import { routerConfigPropTypes } from 'wl/util';
 import { wishlistActions, wishlistActionsPropTypes } from 'wl/client/action';
 import { wishlistStatePropTypes } from 'wl/client/reducer';
 
 import Header from './../header/header';
 import { MAIN_PAGE_ROUTE, WISHLIST_PAGE_ROUTE } from './../../routes';
-
-import styles from './layout.scss';
 
 const mapStateToProps = state => pick(state, ['wishlist']);
 const mapDispatchToProps = dispatch =>
@@ -24,13 +22,12 @@ const mapDispatchToProps = dispatch =>
     bindActionCreators(actionCreators, dispatch)
   );
 
-@Theme(styles, 'Layout')
 @connect(mapStateToProps, mapDispatchToProps)
 export class Layout extends React.PureComponent {
   static propTypes = {
     ...routerConfigPropTypes,
-    ...wishlistActionsPropTypes,
-    ...wishlistStatePropTypes
+    ...wishlistStatePropTypes,
+    wishlistActions: wishlistActionsPropTypes.isRequired
   };
 
   componentDidMount() {
@@ -38,17 +35,17 @@ export class Layout extends React.PureComponent {
   }
 
   render() {
-    const { theme, wishlist: { products }, route: { routes } } = this.props;
+    const { wishlist: { products }, route: { routes } } = this.props;
 
     return (
-      <div className={theme('layout')}>
+      <React.Fragment>
         <Header
           wishlistItems={products.length}
           onWishlistClick={this.handleWishlistClick}
           onMainPageClick={this.handleMainPageClick}
         />
         {renderRoutes(routes)}
-      </div>
+      </React.Fragment>
     );
   }
 

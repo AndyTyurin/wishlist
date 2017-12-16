@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch =>
 @connect(mapStateToProps, mapDispatchToProps)
 export class WishlistPage extends React.Component {
   static propTypes = {
-    ...wishlistActionsPropTypes,
+    wishlistActions: wishlistActionsPropTypes.isRequired,
     ...wishlistStatePropTypes
   };
 
@@ -35,7 +35,9 @@ export class WishlistPage extends React.Component {
     return (
       <div className={theme('wishlist-page')}>
         <div className={theme('header')}>
-          <Heading size="xl" styles={headingStyles}>You want this</Heading>
+          <Heading size="xl" styles={headingStyles}>
+            {products.length ? 'You want this' : 'Seems nothing added...'}
+          </Heading>
         </div>
         <ProductsCatalog
           products={products}
