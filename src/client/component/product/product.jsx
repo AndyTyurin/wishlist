@@ -76,7 +76,7 @@ export class Product extends React.Component {
             onLoad={this.handleImageLoad}
           />
         </div>
-        <div className={theme('product-header')}>
+        <div className={theme('product-description')}>
           <div className={theme('product-name')}>
             <Heading size="s">{getShortTitleName(title)}</Heading>
             <Label size="s" styles={labelStyles}>
