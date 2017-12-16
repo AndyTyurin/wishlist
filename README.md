@@ -1,6 +1,5 @@
 # Wishlist
 *Node.js >= 8.x  
-MacOS only!  
 *****
 
 ### Project structure
@@ -77,17 +76,7 @@ yarn run webpack-api
 *Note, webpack client-side must be compiled before server-side.*  
 
 **Look to your project**  
-Go to http://localhost:9091 
+Go to http://localhost:9091  
 
-**Watch for tests completion**
-```
-yarn run test-watch
-```
-
-**Check tests and generate test coverage report**
-```
-yarn run coverage
-```
-
-### Production
-As the project is only in test purposes I didn't waste time to set up of production bundle.
+### Windows  
+Project is not tested on windows, so please write if you got in trouble.  
